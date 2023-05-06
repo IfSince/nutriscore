@@ -4,6 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -51,5 +55,35 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'selected_weight_unit' => Unit::class,
+        'selected_height_unit' => Unit::class,
     ];
+
+    public function userType(): BelongsTo {
+        return $this->belongsTo(UserType::class);
+    }
+
+    public function file(): BelongsTo {
+        return $this->belongsTo(File::class);
+    }
+
+    public function gender(): BelongsTo {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function nutritionalData(): HasOne {
+        return $this->hasOne(NutritionalData::class);
+    }
+
+    public function currentWeightRecording(): HasOne {
+        return $this->hasOne(WeightRecording::class)->latestOfMany();
+    }
+
+    public function weightRecordings(): HasMany {
+        return $this->hasMany(WeightRecording::class);
+    }
+
+    public function allergenics(): BelongsToMany {
+        return $this->belongsToMany(Allergenic::class, 'user_to_allergenics');
+    }
 }

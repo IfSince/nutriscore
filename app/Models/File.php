@@ -13,4 +13,8 @@ class File extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected $casts = [
+        'file_type' => FileType::class,
+    ];
 }
