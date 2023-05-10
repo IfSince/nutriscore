@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Enums\Goal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,10 @@ class NutritionalData extends Model
     protected $hidden = [
         'created_at',
         'updated_at'
+    ];
+
+    protected $casts = [
+        'goal' => Goal::class,
     ];
 
     public function user(): BelongsTo {
