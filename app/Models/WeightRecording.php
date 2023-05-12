@@ -10,9 +10,15 @@ class WeightRecording extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $hidden = [
         'created_at',
         'updated_at'
+    ];
+
+    protected $casts = [
+        'date_of_recording' => 'datetime:Y-m-d',
     ];
 
     public function user(): BelongsTo {

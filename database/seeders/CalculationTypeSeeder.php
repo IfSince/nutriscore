@@ -13,10 +13,10 @@ class CalculationTypeSeeder extends Seeder
     public function run(): void
     {
         DB::table('calculation_types')->insert([
-            ['description' => 'Easy'],
-            ['description' => 'Complicated'],
-            ['description' => 'Harris Benedict'],
-            ['description' => 'Mifflin-St. Jeor'],
+            ['id' => 1, 'description' => 'Easy'],
+            ['id' => 2, 'description' => 'Complicated'],
+            ['id' => 3, 'description' => 'Harris Benedict'],
+            ['id' => 4, 'description' => 'Mifflin-St. Jeor'],
         ]);
     }
 }

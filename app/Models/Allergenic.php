@@ -12,10 +12,11 @@ class Allergenic extends Model
 
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'pivot'
     ];
 
     public function users(): BelongsToMany {
-        return $this->belongsToMany(User::class, 'user_to_allergenics');
+        return $this->belongsToMany(User::class, 'user_to_allergenics',)->withTimestamps();
     }
 }

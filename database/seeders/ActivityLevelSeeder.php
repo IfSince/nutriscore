@@ -13,15 +13,15 @@ class ActivityLevelSeeder extends Seeder
     public function run(): void
     {
         DB::table('activity_levels')->insert([
-            ['description' => 'No sports'],
-            ['description' => '1-3x sports/week'],
-            ['description' => '3-5x sports/week'],
-            ['description' => '6-7x sports/week'],
-            ['description' => 'Daily sports and physically demanding work'],
-            ['description' => 'PA Level'],
-            ['description' => 'MET'],
-            ['description' => 'MET Factor'],
-            ['description' => 'PA Factor'],
+            ['id' => 1, 'description' => 'No sports'],
+            ['id' => 2, 'description' => '1-3x sports/week'],
+            ['id' => 3, 'description' => '3-5x sports/week'],
+            ['id' => 4, 'description' => '6-7x sports/week'],
+            ['id' => 5, 'description' => 'Daily sports and physically demanding work'],
+            ['id' => 6, 'description' => 'PA Level'],
+            ['id' => 7, 'description' => 'MET'],
+            ['id' => 8, 'description' => 'MET Factor'],
+            ['id' => 9, 'description' => 'PA Factor'],
         ]);
     }
 }

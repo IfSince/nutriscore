@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder {
             CalculationTypeSeeder::class,
             GenderSeeder::class,
             NutritionTypeSeeder::class,
+            AllergenicSeeder::class,
         ]);
     }
 }

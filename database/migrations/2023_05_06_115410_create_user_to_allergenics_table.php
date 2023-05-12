@@ -24,6 +24,8 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->timestamps();
+
+            $table->unique(['user_id', 'allergenic_id']);
         });
     }
 

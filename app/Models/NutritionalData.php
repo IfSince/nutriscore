@@ -14,6 +14,8 @@ class NutritionalData extends Model
 
     protected $table = 'nutritional_data';
 
+    protected $guarded = [];
+
     protected $hidden = [
         'created_at',
         'updated_at'

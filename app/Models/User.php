@@ -3,7 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Casts\Hash;
 use App\Models\Enums\Unit;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,52 +15,57 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'id',
-        'name',
         'email',
         'password',
-        'emailVerifiedAt',
-        'firstName',
-        'lastName',
-        'dateOfBirth',
+        'user_type_id',
+        'first_name',
+        'last_name',
+        'file_id',
+        'gender_id',
+        'date_of_birth',
         'height',
-        'acceptedTos',
-        'selectedWeightUnit',
-        'selectedHeightUnit',
+        'accepted_tos',
+        'selected_weight_unit',
+        'selected_height_unit',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
         'created_at',
         'updated_at',
+        'pivot',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime:Y-m-d',
+        'date_of_birth' => 'datetime:Y-m-d',
+        'password' => Hash::class,
         'selected_weight_unit' => Unit::class,
         'selected_height_unit' => Unit::class,
     ];
+
+    // used to initially load relations
+    // protected $with = ['userType', 'file', 'gender', 'nutritionalData', 'weightRecordings', 'allergenics'];
+
+    protected function firstName(): Attribute {
+        return Attribute::make(
+            get: fn(string $value) => ucfirst($value),
+            set: fn(string $value) => strtolower($value),
+        );
+    }
+
+    protected function lastName(): Attribute {
+        return Attribute::make(
+            get: fn(string $value) => ucfirst($value),
+            set: fn(string $value) => strtolower($value),
+        );
+    }
 
     public function userType(): BelongsTo {
         return $this->belongsTo(UserType::class);
@@ -85,6 +92,6 @@ class User extends Authenticatable
     }
 
     public function allergenics(): BelongsToMany {
-        return $this->belongsToMany(Allergenic::class, 'user_to_allergenics');
+        return $this->belongsToMany(Allergenic::class, 'user_to_allergenics')->withTimestamps();
     }
 }
