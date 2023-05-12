@@ -31,7 +31,7 @@ Route::controller(UserController::class)->prefix('users')->group(function () {
 
 Route::apiResource('nutrition', NutritionalDataController::class)
     ->parameters(['nutrition' => 'nutritional-data'])
-    ->except(['index', 'store']);
+    ->only(['show', 'update']);
 
 Route::fallback(function () {
     return 'This is my default not found response';
