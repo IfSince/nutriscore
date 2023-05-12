@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::put('/register', [RegisterController::class, 'register']);
+Route::put('register', [RegisterController::class, 'register']);
 
 Route::get('user/{user}', [UserController::class, 'get']);
 
