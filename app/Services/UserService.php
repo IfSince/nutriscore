@@ -21,4 +21,22 @@ class UserService {
             'selected_height_unit' => $data['selectedHeightUnit'],
         ]);
     }
+
+    public function update(array $data): User {
+        $user = User::find($data['id']);
+
+        $user->user_type_id = $data['userTypeId'];
+        $user->email = $data['email'];
+        $user->first_name = $data['firstName'];
+        $user->last_name = $data['lastName'];
+        $user->gender_id = $data['genderId'];
+        $user->date_of_birth = $data['dateOfBirth'];
+        $user->height = $data['height'];
+        $user->selected_height_unit = $data['selectedHeightUnit'];
+        $user->selected_weight_unit = $data['selectedWeightUnit'];
+
+        $user->save();
+
+        return $user;
+    }
 }
