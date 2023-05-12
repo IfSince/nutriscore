@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::put('register', [RegisterController::class, 'register']);
 
-Route::get('user/{user}', [UserController::class, 'get']);
+Route::get('users/{user}', [UserController::class, 'get']);
 
 Route::fallback(function () {
     return 'This is my default not found response';
