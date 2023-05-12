@@ -22,9 +22,7 @@ class UserService {
         ]);
     }
 
-    public function update(array $data): User {
-        $user = User::find($data['id']);
-
+    public function update(array $data, User $user): User {
         $user->user_type_id = $data['userTypeId'];
         $user->email = $data['email'];
         $user->first_name = $data['firstName'];
@@ -38,5 +36,15 @@ class UserService {
         $user->save();
 
         return $user;
+    }
+
+    public function delete(User $user): void {
+        $user->individualMacroDistribution()->delete();
+        $user->nutritionalData()->delete();
+        $user->weightRecordings()->delete();
+        $user->file()->delete();
+        $user->allergenics()->delete();
+
+        $user->delete();
     }
 }

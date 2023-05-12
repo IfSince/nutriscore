@@ -23,15 +23,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::put('register', [RegisterController::class, 'register']);
 
+Route::apiResource('users', UserController::class)
+    ->only(['show', 'update', 'destroy']);
 
-Route::controller(UserController::class)->prefix('users')->group(function () {
-    Route::get('{user}', 'get');
-    Route::post('/', 'post');
-});
 
 Route::apiResource('nutrition', NutritionalDataController::class)
     ->parameters(['nutrition' => 'nutritional-data'])
     ->only(['show', 'update']);
+
 
 Route::fallback(function () {
     return 'This is my default not found response';

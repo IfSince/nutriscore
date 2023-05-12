@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,7 +53,7 @@ class User extends Authenticatable {
     ];
 
     // used to initially load relations
-    // protected $with = ['userType', 'file', 'gender', 'nutritionalData', 'weightRecordings', 'allergenics'];
+//    protected $with = ['userType', 'file', 'gender', 'nutritionalData', 'weightRecordings', 'allergenics', 'individualMacroDistribution'];
 
     protected function firstName(): Attribute {
         return Attribute::make(
@@ -82,6 +83,10 @@ class User extends Authenticatable {
 
     public function nutritionalData(): HasOne {
         return $this->hasOne(NutritionalData::class);
+    }
+
+    public function individualMacroDistribution(): HasOneThrough {
+        return $this->hasOneThrough(IndividualMacroDistribution::class, NutritionalData::class);
     }
 
     public function currentWeightRecording(): HasOne {

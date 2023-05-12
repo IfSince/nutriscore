@@ -12,7 +12,7 @@ class NutritionalDataController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(NutritionalData $nutritionalData) {
+    public function show(NutritionalData $nutritionalData): NutritionalData {
         return $nutritionalData;
     }
 
