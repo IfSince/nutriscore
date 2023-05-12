@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NutritionalDataController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -23,10 +24,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::put('register', [RegisterController::class, 'register']);
 
 
-Route::controller(UserController::class)->prefix('users')->group(function() {
+Route::controller(UserController::class)->prefix('users')->group(function () {
     Route::get('{user}', 'get');
     Route::post('/', 'post');
 });
+
+Route::apiResource('nutrition', NutritionalDataController::class)
+    ->parameters(['nutrition' => 'nutritional-data'])
+    ->except(['index', 'store']);
 
 Route::fallback(function () {
     return 'This is my default not found response';

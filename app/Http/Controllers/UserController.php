@@ -10,8 +10,8 @@ use Illuminate\Http\Response;
 class UserController extends Controller {
     public function __construct(private readonly UserService $userService) {}
 
-    public function get(User $user): Response {
-        return response($user);
+    public function get(User $user): User {
+        return $user;
     }
 
     public function post(UserRequest $request): Response {

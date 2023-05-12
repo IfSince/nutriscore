@@ -16,4 +16,17 @@ class NutritionalDataService {
             'calorie_restriction' => $data['calorieRestriction'],
         ]);
     }
+
+    public function update($data, NutritionalData $nutritionalData): NutritionalData {
+        $nutritionalData->nutrition_type_id = $data['nutritionTypeId'];
+        $nutritionalData->calculation_type_id = $data['calculationTypeId'];
+        $nutritionalData->activity_level_id = $data['activityLevelId'];
+        $nutritionalData->physical_activity_level = $data['physicalActivityLevel'];
+        $nutritionalData->goal = $data['goal'];
+        $nutritionalData->calorie_restriction = $data['calorieRestriction'];
+
+        $nutritionalData->save();
+
+        return $nutritionalData;
+    }
 }
