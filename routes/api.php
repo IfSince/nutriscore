@@ -3,6 +3,7 @@
 use App\Http\Controllers\NutritionalDataController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WeightRecordingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,12 @@ Route::put('register', [RegisterController::class, 'register']);
 Route::apiResource('users', UserController::class)
     ->only(['show', 'update', 'destroy']);
 
-
 Route::apiResource('nutrition', NutritionalDataController::class)
     ->parameters(['nutrition' => 'nutritional-data'])
     ->only(['show', 'update']);
 
+Route::get('users/{userId}/weight-recordings/latest', [WeightRecordingController::class, 'showLatest']);
+Route::apiResource('users.weight-recordings', WeightRecordingController::class)->scoped();
 
 Route::fallback(function () {
     return 'This is my default not found response';

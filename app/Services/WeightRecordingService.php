@@ -13,4 +13,17 @@ class WeightRecordingService {
             'date_of_recording' => $data['dateOfRecording'] ?? Carbon::now()->toDate()
         ]);
     }
+
+    public function update(array $data, WeightRecording $weightRecording): WeightRecording {
+        $weightRecording->weight = $data['weight'];
+        $weightRecording->date_of_recording = $data['dateOfRecording'];
+
+        $weightRecording->save();
+
+        return $weightRecording;
+    }
+
+    public function delete(WeightRecording $weightRecording): void {
+        $weightRecording->delete();
+    }
 }

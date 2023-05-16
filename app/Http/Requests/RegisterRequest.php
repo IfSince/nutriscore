@@ -36,7 +36,7 @@ class RegisterRequest extends FormRequest {
             'user.acceptedTos' => ['required', 'boolean', 'accepted'],
 
             'weightRecording.weight' => ['required', 'integer', 'min:0'],
-            'weightRecording.dateOfBirth' => ['nullable', 'date'],
+            'weightRecording.dateOfRecording' => ['nullable', 'date'],
 
             'nutritionalData.nutritionTypeId' => ['required', 'integer', 'exists:nutrition_types,id'],
             'nutritionalData.calculationTypeId' => ['required', 'integer', 'exists:calculation_types,id'],
