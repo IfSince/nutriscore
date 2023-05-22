@@ -31,8 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('nutrition', NutritionalDataController::class)->only(['show', 'update'])
         ->parameters(['nutrition' => 'nutritional-data']);
 
-    Route::get('users/{userId}/weight-recordings/latest', [WeightRecordingController::class, 'showLatest']);
-    Route::apiResource('users.weight-recordings', WeightRecordingController::class)->scoped();
+    Route::get('users/{user}/weight-recordings/latest', [WeightRecordingController::class, 'showLatest']);
+    Route::apiResource('users.weight-recordings', WeightRecordingController::class)->shallow();
 });
 
 // Fallback
