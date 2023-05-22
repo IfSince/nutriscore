@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NutritionalDataController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WeightRecordingController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,22 +18,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Auth
+Route::put('register', [RegisterController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+
+// Protected Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::apiResource('users', UserController::class)->only(['show', 'update', 'destroy']);
+
+    Route::apiResource('nutrition', NutritionalDataController::class)->only(['show', 'update'])
+        ->parameters(['nutrition' => 'nutritional-data']);
+
+    Route::get('users/{userId}/weight-recordings/latest', [WeightRecordingController::class, 'showLatest']);
+    Route::apiResource('users.weight-recordings', WeightRecordingController::class)->scoped();
 });
 
-Route::put('register', [RegisterController::class, 'register']);
-
-Route::apiResource('users', UserController::class)
-    ->only(['show', 'update', 'destroy']);
-
-Route::apiResource('nutrition', NutritionalDataController::class)
-    ->parameters(['nutrition' => 'nutritional-data'])
-    ->only(['show', 'update']);
-
-Route::get('users/{userId}/weight-recordings/latest', [WeightRecordingController::class, 'showLatest']);
-Route::apiResource('users.weight-recordings', WeightRecordingController::class)->scoped();
-
+// Fallback
 Route::fallback(function () {
     return 'This is my default not found response';
 });

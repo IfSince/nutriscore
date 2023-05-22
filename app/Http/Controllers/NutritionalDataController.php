@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateNutritionalDataRequest;
+use App\Http\Requests\NutritionalDataRequest;
 use App\Models\NutritionalData;
 use App\Services\NutritionalDataService;
 
@@ -19,7 +19,7 @@ class NutritionalDataController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateNutritionalDataRequest $request, NutritionalData $nutritionalData): NutritionalData {
+    public function update(NutritionalDataRequest $request, NutritionalData $nutritionalData): NutritionalData {
         return $this->nutritionalDataService->update($request->post(), $nutritionalData);
     }
 }

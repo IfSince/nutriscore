@@ -6,7 +6,7 @@ use App\Models\Enums\Goal;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
-class UpdateNutritionalDataRequest extends FormRequest
+class NutritionalDataRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
