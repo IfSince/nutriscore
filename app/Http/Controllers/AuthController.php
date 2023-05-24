@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,21 +11,19 @@ use Symfony\Component\HttpFoundation\Response as Status;
 
 class AuthController extends Controller {
     public function login(LoginRequest $request): JsonResponse {
-        $credentials = $request->validated();
+        if (Auth::attempt($request->validated())) {
+            $request->session()->regenerate();
 
-        if (!Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Invalid login credentials'], Status::HTTP_UNAUTHORIZED);
+            return response()->json([],Status::HTTP_CREATED);
         }
 
-        $user = User::where('email', $request->validated('email'))->firstOrFail();
-
-        $token = $user->createToken('access_token')->plainTextToken;
-
-        return response()->json(['access_token' => $token])->header('Content-Type', 'application/json');
+        return response()->json(['The provided credentials do not match our records.'], Status::HTTP_UNAUTHORIZED);
     }
 
+
     public function logout(Request $request): Response {
-        $request->user()->tokens()->delete();
+        Auth::guard('web')->logout();
+        $request->session()->regenerate();
 
         return response(['success' => 'Logout successful']);
     }
