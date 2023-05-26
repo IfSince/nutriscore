@@ -43,7 +43,7 @@ class UserService {
         $user->nutritionalData()->delete();
         $user->weightRecordings()->delete();
         $user->file()->delete();
-        $user->allergenics()->delete();
+        $user->allergenics()->detach();
 
         $user->delete();
     }

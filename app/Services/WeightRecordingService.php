@@ -22,8 +22,4 @@ class WeightRecordingService {
 
         return $weightRecording;
     }
-
-    public function delete(WeightRecording $weightRecording): void {
-        $weightRecording->delete();
-    }
 }

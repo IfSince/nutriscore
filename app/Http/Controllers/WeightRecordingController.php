@@ -50,7 +50,7 @@ class WeightRecordingController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(WeightRecording $weightRecording): Response {
-        $this->weightRecordingService->delete($weightRecording);
+        $weightRecording->delete();
 
         return response(status: Status::HTTP_NO_CONTENT);
     }

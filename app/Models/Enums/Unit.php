@@ -13,4 +13,6 @@ enum Unit: string {
 
     case MILLILITER = 'MILLILITER';
     case LITER = 'LITER';
+
+    case AMOUNT = 'AMOUNT';
 }
