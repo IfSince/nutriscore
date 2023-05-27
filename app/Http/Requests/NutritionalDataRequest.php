@@ -3,16 +3,15 @@
 namespace App\Http\Requests;
 
 use App\Models\Enums\Goal;
+use App\Models\NutritionalData;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
-class NutritionalDataRequest extends FormRequest
-{
+class NutritionalDataRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
+    public function authorize(): bool {
         return true;
     }
 
@@ -21,8 +20,7 @@ class NutritionalDataRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
             'nutritionTypeId' => ['required', 'integer', 'exists:nutrition_types,id'],
             'calculationTypeId' => ['required', 'integer', 'exists:calculation_types,id'],

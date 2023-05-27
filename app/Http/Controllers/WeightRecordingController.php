@@ -23,9 +23,8 @@ class WeightRecordingController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(WeightRecordingRequest $request, int $userId): WeightRecording {
-        $request->merge(['userId' => $userId]);
-        return $this->weightRecordingService->create($request->all());
+    public function store(WeightRecordingRequest $request, User $user): WeightRecording {
+        return $this->weightRecordingService->create($request->validated(), $user);
     }
 
     /**

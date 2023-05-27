@@ -20,6 +20,6 @@ class NutritionalDataController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(NutritionalDataRequest $request, NutritionalData $nutritionalData): NutritionalData {
-        return $this->nutritionalDataService->update($request->post(), $nutritionalData);
+        return $this->nutritionalDataService->update($request->validated(), $nutritionalData);
     }
 }

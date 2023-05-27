@@ -22,7 +22,7 @@ class UserController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(UpdateUserRequest $request, User $user): User {
-        return $this->userService->update($request->post(), $user);
+        return $this->userService->update($request->validated(), $user);
     }
 
     /**

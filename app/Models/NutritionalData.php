@@ -41,6 +41,12 @@ class NutritionalData extends Model
         return $this->belongsTo(ActivityLevel::class);
     }
 
+    public function requiresIndividualMacroDistribution(): bool {
+        return $this->nutritionType->protein === null &&
+            $this->nutritionType->carbohydrates === null &&
+            $this->nutritionType->fats === null;
+    }
+
     public function individualMacroDistribution(): HasOne {
         return $this->hasOne(IndividualMacroDistribution::class);
     }

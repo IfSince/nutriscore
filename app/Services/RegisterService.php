@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\DB;
+
 class RegisterService {
     public function __construct(
         public UserService $userService,
@@ -12,19 +14,19 @@ class RegisterService {
     }
 
     public function register(array $data): void {
+        DB::beginTransaction();
+
         $user = $this->userService->create($data['user']);
 
-        $data['weightRecording']['userId'] = $user->id;
-        $this->weightRecordingService->create($data['weightRecording']);
+        $this->weightRecordingService->create($data['weightRecording'], $user);
+        $nutritionalData = $this->nutritionalDataService->create($data['nutritionalData'], $user);
 
-        $data['nutritionalData']['userId'] = $user->id;
-        $nutritionalData = $this->nutritionalDataService->create($data['nutritionalData']);
-
-        if (isset($data['individualMacroDistribution']) && !empty($data['individualMacroDistribution'])) {
-            $data['individualMacroDistribution']['nutritionalDataId'] = $nutritionalData->id;
-            $this->individualMacroDistributionService->create($data['individualMacroDistribution']);
+        if ($user->nutritionalData->requiresIndividualMacroDistribution()) {
+            $this->individualMacroDistributionService->create($data['individualMacroDistribution'], $nutritionalData);
         }
 
         $user->allergenics()->attach($data['allergenicIds']);
+
+        DB::commit();
     }
 }

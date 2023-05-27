@@ -14,7 +14,7 @@ class FoodController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FoodRequest $request) {
+    public function store(FoodRequest $request): Food {
         return $this->foodService->create($request->validated());
     }
 

@@ -38,6 +38,8 @@ class FoodService {
 
         $food->save();
 
+        $food->refresh();
+
         return $food;
     }
 }

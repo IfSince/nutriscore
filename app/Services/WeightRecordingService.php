@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Models\WeightRecording;
 use Illuminate\Support\Carbon;
 
 class WeightRecordingService {
-    public function create(array $data): WeightRecording {
-        return WeightRecording::create([
-            'user_id' => $data['userId'],
+    public function create(array $data, User $user): WeightRecording {
+        return $user->weightRecordings()->create([
             'weight' => $data['weight'],
             'date_of_recording' => $data['dateOfRecording'] ?? Carbon::now()->toDate()
         ]);

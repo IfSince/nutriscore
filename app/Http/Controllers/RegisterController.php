@@ -11,10 +11,8 @@ class RegisterController extends Controller {
     public function __construct(private readonly RegisterService $registerService) { }
 
     public function register(RegisterRequest $request): Response {
-        $validated = $request->messages();
+        $this->registerService->register($request->validated());
 
-        $this->registerService->register($request->post());
-
-        return response($validated, Status::HTTP_CREATED);
+        return response($request->messages(), Status::HTTP_CREATED);
     }
 }

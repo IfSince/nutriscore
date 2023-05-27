@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use App\Models\NutritionalData;
+use App\Models\User;
 
 class NutritionalDataService {
-    public function create(array $data): NutritionalData {
-        return NutritionalData::create([
-            'user_id' => $data['userId'],
+    public function create(array $data, User $user): NutritionalData {
+        return $user->nutritionalData()->create([
             'nutrition_type_id' => $data['nutritionTypeId'],
             'calculation_type_id' => $data['calculationTypeId'],
             'activity_level_id' => $data['activityLevelId'],

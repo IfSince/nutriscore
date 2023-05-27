@@ -23,7 +23,7 @@ class UpdateUserRequest extends FormRequest {
     public function rules(Request $request): array {
         return [
             'userTypeId' => ['required', 'integer', 'exists:user_types,id'],
-            'email' => ['required', 'string', 'email', 'max:255', "unique:users,email,{$request->get('id')}"],
+            'email' => ['required', 'string', 'email', 'max:255', "unique:users,email,{$request->user()->id}"],
             'firstName' => ['nullable', 'string', 'min:2', 'max:255'],
             'lastName' => ['required', 'string', 'min:2', 'max:255'],
             'genderId' => ['required', 'integer', 'exists:genders,id'],
@@ -31,6 +31,12 @@ class UpdateUserRequest extends FormRequest {
             'height' => ['required', 'integer', 'min:0'],
             'selectedHeightUnit' => ['required', new Enum(Unit::class)],
             'selectedWeightUnit' => ['required', new Enum(Unit::class)],
+        ];
+    }
+
+    public function filters(): array {
+        return [
+            'user.email' => 'trim|lowercase',
         ];
     }
 }
