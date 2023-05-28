@@ -18,6 +18,8 @@ class Meal extends Model
         'updated_at',
     ];
 
+    protected $with = ['foods', 'categories'];
+
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
@@ -27,11 +29,10 @@ class Meal extends Model
     }
 
     public function foods(): BelongsToMany {
-        return $this->belongsToMany(Food::class, 'meal_to_food')->withTimestamps();
+        return $this->belongsToMany(Food::class, 'meal_to_food')->withTimestamps()->withPivot(['amount']);
     }
 
     public function categories(): BelongsToMany {
         return $this->belongsToMany(FoodCategory::class, 'meal_to_food_categories')->withTimestamps();
     }
-
 }
