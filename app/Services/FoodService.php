@@ -11,7 +11,7 @@ class FoodService {
             'unit' => $data['unit'],
             'amount' => $data['amount'],
             'calories' => $data['calories'],
-            'protein' => $data['calories'],
+            'protein' => $data['protein'],
             'carbohydrates' => $data['carbohydrates'],
             'fats' => $data['fats'],
             'file_id' => null,

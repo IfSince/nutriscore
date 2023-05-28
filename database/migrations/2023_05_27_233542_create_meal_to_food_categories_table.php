@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\File;
-use App\Models\User;
+use App\Models\FoodCategory;
+use App\Models\Meal;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,18 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('meals', function (Blueprint $table) {
+        Schema::create('meal_to_food_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('description')->comment('Description');
-            $table->foreignIdFor(User::class)->comment('Foreign key for user')
+            $table->foreignIdFor(Meal::class)->comment('Foreign key for meal')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->foreignIdFor(File::class)->comment('Foreign key for file (profile image)')->nullable()
+            $table->foreignIdFor(FoodCategory::class)->comment('Foreign key for food category')
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
-
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('meals');
+        Schema::dropIfExists('meal_to_food_categories');
     }
 };

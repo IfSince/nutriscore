@@ -41,7 +41,7 @@ class WeightRecordingController extends Controller {
     /**
      * Update the specified resource in storage.
      */
-    public function update(WeightRecordingRequest $request, WeightRecording $weightRecording) {
+    public function update(WeightRecordingRequest $request, WeightRecording $weightRecording): WeightRecording {
         return $this->weightRecordingService->update($request->validated(), $weightRecording);
     }
 

@@ -30,9 +30,9 @@ class FoodRequest extends FormRequest {
             'fats' => ['required', 'integer', 'min:0'],
             'fileId' => ['nullable', 'integer', 'exists:file,id'],
             'categoryIds' => ['array'],
+            'categoryIds.*' => ['sometimes', 'distinct', 'integer', 'exists:food_categories,id'],
             'allergenicIds' => ['array'],
-            'categoryIds.*' => ['sometimes', 'integer', 'exists:food_categories,id'],
-            'allergenicIds.*' => ['sometimes', 'integer', 'exists:allergenics,id'],
+            'allergenicIds.*' => ['sometimes', 'distinct', 'integer', 'exists:allergenics,id'],
         ];
     }
 }

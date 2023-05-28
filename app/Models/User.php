@@ -101,6 +101,10 @@ class User extends Authenticatable {
         return $this->belongsToMany(Allergenic::class, 'user_to_allergenics')->withTimestamps();
     }
 
+    public function meals(): HasMany {
+        return $this->hasMany(Meal::class);
+    }
+
     public function mealRecordings(): HasMany {
         return $this->hasMany(MealRecording::class);
     }

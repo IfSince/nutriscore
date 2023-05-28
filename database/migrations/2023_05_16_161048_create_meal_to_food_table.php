@@ -23,6 +23,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->decimal('amount')->comment('Amount of food');
             $table->timestamps();
         });
     }

@@ -44,6 +44,7 @@ class UserService {
         $user->weightRecordings()->delete();
         $user->file()->delete();
         $user->allergenics()->detach();
+        $user->meals()->delete();
 
         $user->delete();
     }

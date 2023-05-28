@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\MealController;
 use App\Http\Controllers\NutritionalDataController;
-use App\Http\Controllers\RecordingsController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WeightRecordingController;
@@ -37,6 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users.weight-recordings', WeightRecordingController::class)->shallow();
 
     Route::apiResource('foods', FoodController::class)->only(['store', 'show', 'update', 'destroy']);
+
+    Route::get('meals', [MealController::class, 'indexAll']);
+    Route::apiResource('users.meals', MealController::class)->shallow();
 });
 
 // Fallback
