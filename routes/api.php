@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\FoodRecordingController;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\MealRecordingController;
 use App\Http\Controllers\NutritionalDataController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
@@ -30,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('users', UserController::class)->only(['show', 'update', 'destroy']);
 
+    Route::get('users/{user}/nutrition', [NutritionalDataController::class, 'showByUser']);
     Route::apiResource('nutrition', NutritionalDataController::class)->only(['show', 'update'])
         ->parameters(['nutrition' => 'nutritional-data']);
 
@@ -40,6 +43,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('meals', [MealController::class, 'indexAll']);
     Route::apiResource('users.meals', MealController::class)->shallow();
+
+    Route::apiResource('users.food-recordings', FoodRecordingController::class)
+        ->only(['store', 'show', 'update', 'destroy'])
+        ->shallow();
+
+    Route::apiResource('users.meal-recordings', MealRecordingController::class)
+        ->only(['store', 'show', 'update', 'destroy'])
+        ->shallow();
 });
 
 // Fallback

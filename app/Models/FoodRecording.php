@@ -14,6 +14,8 @@ class FoodRecording extends Model {
         'updated_at',
     ];
 
+    protected $guarded = [];
+
     protected $casts = [
         'date_of_recording' => 'datetime:Y-m-d',
         'time_of_day' => TimeOfDay::class,

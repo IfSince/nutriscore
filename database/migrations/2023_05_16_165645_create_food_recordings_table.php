@@ -25,6 +25,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->date('date_of_recording')->comment('Date of recording');
             $table->string('time_of_day')->comment('Enum value time of day');
+            $table->decimal('amount')->comment('Amount of food');
             $table->timestamps();
         });
     }
