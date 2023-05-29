@@ -17,8 +17,8 @@ class FoodService {
             'file_id' => null,
         ]);
 
-        $food->foodCategories()->attach($data['categoryIds']);
-        $food->foodAllergenics()->attach($data['allergenicIds']);
+        $food->categories()->attach($data['categoryIds']);
+        $food->allergenics()->attach($data['allergenicIds']);
 
         return $food;
     }
@@ -33,8 +33,8 @@ class FoodService {
         $food->fats = $data['fats'];
         $food->file_id = null;
 
-        $food->foodCategories()->sync($data['categoryIds']);
-        $food->foodAllergenics()->sync($data['allergenicIds']);
+        $food->categories()->sync($data['categoryIds']);
+        $food->allergenics()->sync($data['allergenicIds']);
 
         $food->save();
 

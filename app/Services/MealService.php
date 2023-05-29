@@ -14,14 +14,9 @@ class MealService {
 
         $meal->categories()->attach($data['categoryIds']);
 
-        $foods = [];
-        foreach ($data['foods'] as $value) {
-            $foods[$value['id']] = ['amount' => $value['amount']];
-        }
-        $meal->foods()->attach($foods);
-
-        $meal->categories;
-        $meal->foods;
+        $foodCollection =
+            collect($data['foods'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['amount']]]);
+        $meal->foods()->attach($foodCollection);
 
         return $meal;
     }
@@ -32,15 +27,9 @@ class MealService {
 
         $meal->categories()->sync($data['categoryIds']);
 
-
-        $foods = [];
-        foreach ($data['foods'] as $value) {
-            $foods[$value['id']] = ['amount' => $value['amount']];
-        }
-        $meal->foods()->sync($foods);
-
-        $meal->categories;
-        $meal->foods;
+        $foodCollection =
+            collect($data['foods'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['amount']]]);
+        $meal->foods()->sync($foodCollection);
 
         return $meal;
     }

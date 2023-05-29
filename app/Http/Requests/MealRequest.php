@@ -25,7 +25,7 @@ class MealRequest extends FormRequest {
             'categoryIds.*' => ['sometimes', 'integer', 'exists:food_categories,id'],
             'foods' => ['array'],
             'foods.*.id' => ['sometimes', 'distinct', 'integer', 'exists:food,id'],
-            'foods.*.amount' => ['sometimes', 'integer', 'min:0'],
+            'foods.*.amount' => ['sometimes', 'numeric', 'min:0'],
         ];
     }
 }

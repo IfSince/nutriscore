@@ -24,8 +24,6 @@ class Food extends Model
       'unit' => Unit::class,
     ];
 
-    protected $with = ['foodCategories', 'foodAllergenics'];
-
     protected function description(): Attribute {
         return Attribute::make(
             get: fn(string $value) => ucfirst($value),
@@ -37,11 +35,11 @@ class Food extends Model
         return $this->belongsTo(File::class);
     }
 
-    public function foodCategories(): BelongsToMany {
+    public function categories(): BelongsToMany {
         return $this->belongsToMany(FoodCategory::class, 'food_to_food_categories')->withTimestamps();
     }
 
-    public function foodAllergenics(): BelongsToMany {
+    public function allergenics(): BelongsToMany {
         return $this->belongsToMany(Allergenic::class, 'food_to_allergenics')->withTimestamps();
     }
 }

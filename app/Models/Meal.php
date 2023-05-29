@@ -18,8 +18,6 @@ class Meal extends Model
         'updated_at',
     ];
 
-    protected $with = ['foods', 'categories'];
-
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }

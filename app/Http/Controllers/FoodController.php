@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FoodRequest;
+use App\Http\Resources\FoodResource;
 use App\Models\food;
 use App\Services\FoodService;
 use Illuminate\Http\Response;
@@ -14,22 +15,22 @@ class FoodController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FoodRequest $request): Food {
-        return $this->foodService->create($request->validated());
+    public function store(FoodRequest $request): FoodResource {
+        return FoodResource::make($this->foodService->create($request->validated()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Food $food): Food {
-        return $food;
+    public function show(Food $food): FoodResource {
+        return FoodResource::make($food);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(FoodRequest $request, Food $food): Food {
-        return $this->foodService->update($request->validated(), $food);
+    public function update(FoodRequest $request, Food $food): FoodResource {
+        return FoodResource::make($this->foodService->update($request->validated(), $food));
     }
 
     /**
