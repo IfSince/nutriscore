@@ -13,13 +13,11 @@ class AuthController extends Controller {
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
-            return response(status: Status::HTTP_CREATED);
+            return response(content: ['data' => Auth::user()], status: Status::HTTP_CREATED);
         }
 
-        return response(['error' => 'The provided credentials do not match our records'], Status::HTTP_UNAUTHORIZED);
+        return response(['message' => 'Invalid email or password'], Status::HTTP_UNAUTHORIZED);
     }
-
-
     public function logout(Request $request): Response {
         Auth::guard('web')->logout();
 

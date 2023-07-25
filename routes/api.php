@@ -10,6 +10,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WeightRecordingController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response as Status;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users/{user}/weight-recordings/latest', [WeightRecordingController::class, 'showLatest']);
     Route::apiResource('users.weight-recordings', WeightRecordingController::class)->shallow();
 
-    Route::apiResource('foods', FoodController::class)->only(['store', 'show', 'update', 'destroy']);
+    Route::apiResource('foods', FoodController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
 
     Route::get('meals', [MealController::class, 'indexAll']);
     Route::apiResource('users.meals', MealController::class)->shallow();
@@ -55,5 +56,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Fallback
 Route::fallback(function () {
-    return 'This is my default not found response';
+    return response(content: ['message' => ['This is my default not found response']], status: Status::HTTP_NOT_FOUND);
 });

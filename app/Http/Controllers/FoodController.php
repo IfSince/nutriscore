@@ -6,11 +6,16 @@ use App\Http\Requests\FoodRequest;
 use App\Http\Resources\FoodResource;
 use App\Models\food;
 use App\Services\FoodService;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as Status;
 
 class FoodController extends Controller {
-    public function __construct(private readonly FoodService $foodService) {}
+    public function __construct(private readonly FoodService $foodService) { }
+
+    public function index(): AnonymousResourceCollection {
+        return FoodResource::collection(Food::all());
+    }
 
     /**
      * Store a newly created resource in storage.
