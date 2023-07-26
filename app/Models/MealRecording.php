@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Enums\TimeOfDay;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MealRecording extends Model {
     use HasFactory;
@@ -20,4 +21,9 @@ class MealRecording extends Model {
         'date_of_recording' => 'datetime:Y-m-d',
         'time_of_day' => TimeOfDay::class,
     ];
+
+    public function meal(): BelongsTo {
+        return $this->belongsTo(Meal::class);
+    }
+
 }

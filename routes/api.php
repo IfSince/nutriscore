@@ -8,6 +8,7 @@ use App\Http\Controllers\MealRecordingController;
 use App\Http\Controllers\NutritionalDataController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserNutritionalMetadataController;
 use App\Http\Controllers\WeightRecordingController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response as Status;
@@ -32,6 +33,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::apiResource('users', UserController::class)->only(['show', 'update', 'destroy']);
+
+    Route::get('users/{user}/nutritional-metadata', [UserNutritionalMetadataController::class, 'show']);
 
     Route::get('users/{user}/nutrition', [NutritionalDataController::class, 'showByUser']);
     Route::apiResource('nutrition', NutritionalDataController::class)->only(['show', 'update'])

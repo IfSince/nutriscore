@@ -4,7 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Casts\Hash;
+use App\Models\Enums\TimeOfDay;
 use App\Models\Enums\Unit;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable {
@@ -111,5 +114,9 @@ class User extends Authenticatable {
 
     public function foodRecordings(): HasMany {
         return $this->hasMany(FoodRecording::class);
+    }
+
+    public function age(): int {
+        return Carbon::parse($this->date_of_birth)->age;
     }
 }
