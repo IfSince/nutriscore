@@ -6,7 +6,7 @@ use App\Models\Enums\Goal;
 use App\Models\User;
 use App\Models\UserNutritionalMetadata;
 
-class UserNutritionalMetadataService {
+class UserNutritionalMetadataLoadService {
     public function __construct(
         private readonly RestingMetabolicRateCalculatorService $restingMetabolicRateCalculatorService,
         private readonly BasalMetabolicRateCalculatorService $basalMetabolicRateCalculatorService,
@@ -15,15 +15,11 @@ class UserNutritionalMetadataService {
     ) {
     }
 
-    public function createNutritionalMetadataForUser(User $user): UserNutritionalMetadata {
+    public function loadNutritionalMetadataForUser(User $user): UserNutritionalMetadata {
         $restingMetabolicRate = $this->restingMetabolicRateCalculatorService->calculateRestingMetabolicRate($user);
-        $basalMetabolicRate =
-            $this->basalMetabolicRateCalculatorService->calculateBasalMetabolicRate($restingMetabolicRate, $user);
-
+        $basalMetabolicRate = $this->basalMetabolicRateCalculatorService->calculateBasalMetabolicRate($restingMetabolicRate, $user);
         $calorieIntake = $this->getRecommendedCalorieIntake($basalMetabolicRate, $user->nutritionalData->goal);
-
-        $recommendedMacroIntakeCalculation =
-            $this->recommendedMacroIntakeCalculateService->calculateRecommendedMacroIntake($calorieIntake, $user);
+        $recommendedMacroIntakeCalculation = $this->recommendedMacroIntakeCalculateService->calculateRecommendedMacroIntake($calorieIntake, $user);
 
         $foodRecordings = $this->recordingConverterService->convertFoodRecordingsToRecordingData($user->foodRecordings);
         $mealRecordings = $this->recordingConverterService->convertMealRecordingsToRecordingData($user->mealRecordings);

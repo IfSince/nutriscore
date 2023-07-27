@@ -29,21 +29,10 @@ class RecordingConverterService {
             $meal = $mealRecording->meal;
             $foods = $meal->foods;
 
-            $calories = $foods->map(function (Food $food) use ($mealRecording) {
-                return $food->calories * ($mealRecording->amount * $food->pivot->amount) / $food->amount;
-            })->sum();
-
-            $protein = $foods->map(function (Food $food) use ($mealRecording) {
-                return $food->protein * ($mealRecording->amount * $food->pivot->amount) / $food->amount;
-            })->sum();
-
-            $carbohydrates = $foods->map(function (Food $food) use ($mealRecording) {
-                return $food->carbohydrates * ($mealRecording->amount * $food->pivot->amount) / $food->amount;
-            })->sum();
-
-            $fats = $foods->map(function (Food $food) use ($mealRecording) {
-                return $food->fats * ($mealRecording->amount * $food->pivot->amount) / $food->amount;
-            })->sum();
+            $calories = $foods->map(fn(Food $food) => $food->calories * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
+            $protein = $foods->map(fn(Food $food) => $food->protein * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
+            $carbohydrates = $foods->map(fn(Food $food) => $food->carbohydrates * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
+            $fats = $foods->map(fn(Food $food) => $food->fats * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
 
             return new Collection([
                 'dateOfRecording' => Carbon::parse($mealRecording->date_of_recording)->toDateString(),

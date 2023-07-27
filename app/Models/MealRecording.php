@@ -25,5 +25,4 @@ class MealRecording extends Model {
     public function meal(): BelongsTo {
         return $this->belongsTo(Meal::class);
     }
-
 }
