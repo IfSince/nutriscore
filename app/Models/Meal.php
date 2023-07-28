@@ -33,4 +33,20 @@ class Meal extends Model
     public function categories(): BelongsToMany {
         return $this->belongsToMany(FoodCategory::class, 'meal_to_food_categories')->withTimestamps();
     }
+
+    public function calories(): int {
+        return $this->foods->map(fn(Food $food) => $food->calories * $food->pivot->amount / $food->amount)->sum();
+    }
+
+    public function protein(): int {
+        return $this->foods->map(fn(Food $food) => $food->protein * $food->pivot->amount / $food->amount)->sum();
+    }
+
+    public function carbohydrates(): int {
+        return $this->foods->map(fn(Food $food) => $food->protein * $food->pivot->amount / $food->amount)->sum();
+    }
+
+    public function fats(): int {
+        return $this->foods->map(fn(Food $food) => $food->protein * $food->pivot->amount / $food->amount)->sum();
+    }
 }

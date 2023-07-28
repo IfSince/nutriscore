@@ -25,7 +25,7 @@ class UserNutritionalMetadataLoadService {
         $mealRecordings = $this->recordingConverterService->convertMealRecordingsToRecordingData($user->mealRecordings);
 
         return new UserNutritionalMetadata(
-            recordings: $foodRecordings->merge($mealRecordings)->groupBy('dateOfRecording')->all(),
+            recordings: $foodRecordings->toBase()->merge($mealRecordings)->groupBy('dateOfRecording')->all(),
             weightRecordings: $user->weightRecordings->all(),
             recommendedCalorieIntake: $calorieIntake + $user->nutritionalData->calorieRestriction,
             recommendedProteinIntake: $recommendedMacroIntakeCalculation->protein,

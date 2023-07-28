@@ -18,7 +18,7 @@ class NutritionalRecordingsLoadService {
         $foodRecordingsMapped = $this->loadMappedFoodRecordingsForUser($user);
         $mealRecordingsMapped = $this->loadMealRecordingsForUser($user);
 
-        return $foodRecordingsMapped->merge($mealRecordingsMapped)->groupBy('dateOfRecording');
+        return $foodRecordingsMapped->toBase()->merge($mealRecordingsMapped)->groupBy('dateOfRecording');
     }
 
     private function loadMappedFoodRecordingsForUser(User $user): Collection {
