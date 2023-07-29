@@ -10,7 +10,7 @@ use JsonSerializable;
 class NutritionalRecording implements JsonSerializable {
     public function __construct(
         public int $id,
-        public int $recordingId,
+        public int $itemId,
         public string $description,
         public TimeOfDay $timeOfDay,
         public NutritionalRecordingType $type,
@@ -24,7 +24,7 @@ class NutritionalRecording implements JsonSerializable {
     public function jsonSerialize(): array {
         return [
             'id' => $this->id,
-            'recordingId' => $this->recordingId,
+            'itemId' => $this->itemId,
             'description' => $this->description,
             'timeOfDay' => $this->timeOfDay,
             'type' => $this->type,

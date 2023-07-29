@@ -29,7 +29,7 @@ class NutritionalRecordingsLoadService {
 
             return new NutritionalRecording(
                 id: $foodRecording->id,
-                recordingId: $food->id,
+                itemId: $food->id,
                 description: $food->description,
                 timeOfDay: $foodRecording->time_of_day,
                 type: NutritionalRecordingType::FOOD,
@@ -52,7 +52,7 @@ class NutritionalRecordingsLoadService {
 
             return new NutritionalRecording(
                 id: $mealRecording->id,
-                recordingId: $meal->id,
+                itemId: $meal->id,
                 description: $meal->description,
                 timeOfDay: $mealRecording->time_of_day,
                 type: NutritionalRecordingType::MEAL,

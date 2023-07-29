@@ -18,7 +18,7 @@ class NutritionalRecordingSearchEntry extends JsonResource {
         $data = [
             'id' => $this->id,
             'type' => NutritionalRecordingType::FOOD,
-            'amount' => $this->whenHas('amount', $this->amount, 1),
+            'amount' => $this->whenHas('amount', floatval($this->amount), 1),
             'unit' => $this->whenHas('unit', $this->unit, Unit::AMOUNT),
             'description' => $this->description,
             'calories' => $this->whenHas('calories'),
