@@ -29,10 +29,10 @@ class FoodRequest extends FormRequest {
             'carbohydrates' => ['required', 'integer', 'min:0'],
             'fats' => ['required', 'integer', 'min:0'],
             'fileId' => ['nullable', 'integer', 'exists:file,id'],
-            'categoryIds' => ['array'],
-            'categoryIds.*' => ['sometimes', 'distinct', 'integer', 'exists:food_categories,id'],
-            'allergenicIds' => ['array'],
-            'allergenicIds.*' => ['sometimes', 'distinct', 'integer', 'exists:allergenics,id'],
+            'categories' => ['array'],
+            'categories.*' => ['sometimes', 'distinct', 'integer', 'exists:food_categories,id'],
+            'allergenics' => ['array'],
+            'allergenics.*' => ['sometimes', 'distinct', 'integer', 'exists:allergenics,id'],
         ];
     }
 }

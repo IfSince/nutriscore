@@ -25,4 +25,8 @@ class FoodRecording extends Model {
     public function food(): BelongsTo {
         return $this->belongsTo(Food::class);
     }
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
 }

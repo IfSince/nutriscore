@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AllergenicController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodRecordingController;
 use App\Http\Controllers\MealController;
@@ -67,6 +69,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Nutritional Recordings Search
     Route::get('nutritional-recordings/search', [NutritionalRecordingSearchController::class, 'index']);
+
+    //
+    Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('allergenics', [AllergenicController::class, 'index']);
 });
 
 // Fallback
