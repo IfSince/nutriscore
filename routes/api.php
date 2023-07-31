@@ -1,15 +1,19 @@
 <?php
 
+use App\Http\Controllers\ActivityLevelController;
 use App\Http\Controllers\AllergenicController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CalculationTypeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodRecordingController;
+use App\Http\Controllers\GenderController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\MealRecordingController;
 use App\Http\Controllers\NutritionalDataController;
 use App\Http\Controllers\NutritionalRecordingController;
 use App\Http\Controllers\NutritionalRecordingSearchController;
+use App\Http\Controllers\NutritionTypeController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserNutritionalMetadataController;
@@ -31,6 +35,13 @@ use Symfony\Component\HttpFoundation\Response as Status;
 // Auth
 Route::put('register', [RegisterController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+
+// Enum Tables
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('allergenics', [AllergenicController::class, 'index']);
+Route::get('nutrition-types', [NutritionTypeController::class, 'index']);
+Route::get('genders', [GenderController::class, 'index']);
+Route::get('calculation-types', [CalculationTypeController::class, 'index']);
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
@@ -69,10 +80,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Nutritional Recordings Search
     Route::get('nutritional-recordings/search', [NutritionalRecordingSearchController::class, 'index']);
-
-    //
-    Route::get('categories', [CategoryController::class, 'index']);
-    Route::get('allergenics', [AllergenicController::class, 'index']);
 });
 
 // Fallback
