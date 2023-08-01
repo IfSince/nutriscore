@@ -16,7 +16,7 @@ class UserService {
             'gender_id' => $data['genderId'],
             'date_of_birth' => $data['dateOfBirth'],
             'height' => $data['height'],
-            'accepted_tos' => $data['acceptedTos'],
+            'accepted_tos' => true,
             'selected_weight_unit' => $data['selectedWeightUnit'],
             'selected_height_unit' => $data['selectedHeightUnit'],
         ]);

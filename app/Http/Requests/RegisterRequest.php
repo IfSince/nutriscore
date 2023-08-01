@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest {
         return [
             'user.userTypeId' => ['required', 'integer', 'exists:user_types,id'],
             'user.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'user.password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user.password' => ['required', 'string', 'min:8'],
             'user.firstName' => ['nullable', 'string', 'min:2', 'max:255'],
             'user.lastName' => ['required', 'string', 'min:2', 'max:255'],
             'user.genderId' => ['required', 'integer', 'exists:genders,id'],
@@ -33,22 +33,27 @@ class RegisterRequest extends FormRequest {
             'user.height' => ['required', 'integer', 'min:0'],
             'user.selectedHeightUnit' => ['required', new Enum(Unit::class)],
             'user.selectedWeightUnit' => ['required', new Enum(Unit::class)],
-            'user.acceptedTos' => ['required', 'boolean', 'accepted'],
 
             'weightRecording.weight' => ['required', 'integer', 'min:0'],
-            'weightRecording.dateOfRecording' => ['nullable', 'date'],
+            'weightRecording.dateOfRecording' => ['required', 'date'],
 
             'nutritionalData.nutritionTypeId' => ['required', 'integer', 'exists:nutrition_types,id'],
             'nutritionalData.calculationTypeId' => ['required', 'integer', 'exists:calculation_types,id'],
             'nutritionalData.activityLevelId' => ['required', 'integer', 'exists:activity_levels,id'],
-            'nutritionalData.physicalActivityLevel' => ['nullable', 'integer', 'min:0', 'required_if:nutritionalData.activityLevelId,6'],
             'nutritionalData.goal' => ['required', new Enum(Goal::class)],
             'nutritionalData.calorieRestriction' => ['nullable', 'integer'],
 
-            'individualMacroDistribution' => ['nullable', 'prohibited_unless:nutritionalData.nutritionTypeId,8'],
-            'individualMacroDistribution.protein' => ['required', 'integer', 'min:0'],
-            'individualMacroDistribution.carbohydrates' => ['required', 'integer', 'min:0'],
-            'individualMacroDistribution.fats' => ['required', 'integer', 'min:0'],
+            'nutritionalData.physicalActivities' => ['nullable', 'required_if:nutritionalData.activityLevelId,6'],
+            'nutritionalData.physicalActivities.sleeping' => ['nullable', 'integer', 'min:0', 'max:24'],
+            'nutritionalData.physicalActivities.onlySitting' => ['nullable', 'integer', 'min:0', 'max:24'],
+            'nutritionalData.physicalActivities.occasionalActivities' => ['nullable', 'integer', 'min:0', 'max:24'],
+            'nutritionalData.physicalActivities.mostlySittingOrStanding' => ['nullable', 'integer', 'min:0', 'max:24'],
+            'nutritionalData.physicalActivities.mostlyWalkingOrStanding' => ['nullable', 'integer', 'min:0', 'max:24'],
+            'nutritionalData.physicalActivities.physicallyDemanding' => ['nullable', 'integer', 'min:0', 'max:24'],
+
+            'individualMacroDistribution.protein' => ['nullable', 'integer', 'min:0'],
+            'individualMacroDistribution.carbohydrates' => ['nullable', 'integer', 'min:0'],
+            'individualMacroDistribution.fats' => ['nullable', 'integer', 'min:0'],
 
             'allergenicIds' => ['nullable', 'array', 'exists:allergenics,id']
         ];
