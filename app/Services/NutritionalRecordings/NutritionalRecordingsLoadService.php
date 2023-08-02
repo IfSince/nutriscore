@@ -36,6 +36,9 @@ class NutritionalRecordingsLoadService {
                 dateOfRecording: Carbon::parse($foodRecording->date_of_recording)->toDateString(),
                 amount: $foodRecording->amount,
                 calories: $food->calories * $foodRecording->amount / $food->amount,
+                protein: $food->protein * $foodRecording->amount / $food->amount,
+                carbohydrates: $food->carbohydrates * $foodRecording->amount / $food->amount,
+                fats: $food->fats * $foodRecording->amount / $food->amount,
                 unit: $food->unit,
             );
         });
@@ -49,6 +52,10 @@ class NutritionalRecordingsLoadService {
             $foods = $meal->foods;
 
             $calories = $foods->map(fn(Food $food) => $food->calories * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
+            $protein = $foods->map(fn(Food $food) => $food->protein * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
+            $carbohydrates =
+                $foods->map(fn(Food $food) => $food->carbohydrates * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
+            $fats = $foods->map(fn(Food $food) => $food->fats * ($mealRecording->amount * $food->pivot->amount) / $food->amount)->sum();
 
             return new NutritionalRecording(
                 id: $mealRecording->id,
@@ -59,6 +66,9 @@ class NutritionalRecordingsLoadService {
                 dateOfRecording: Carbon::parse($mealRecording->date_of_recording)->toDateString(),
                 amount: $mealRecording->amount,
                 calories: $calories,
+                protein: $protein,
+                carbohydrates: $carbohydrates,
+                fats: $fats,
                 unit: null,
             );
         });

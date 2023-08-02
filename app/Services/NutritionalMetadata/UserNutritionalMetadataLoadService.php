@@ -2,6 +2,7 @@
 
 namespace App\Services\NutritionalMetadata;
 
+use App\Http\Resources\WeightRecordingResource;
 use App\Models\Enums\Goal;
 use App\Models\User;
 use App\Models\UserNutritionalMetadata;
@@ -26,7 +27,7 @@ class UserNutritionalMetadataLoadService {
 
         return new UserNutritionalMetadata(
             recordings: $foodRecordings->toBase()->merge($mealRecordings)->groupBy('dateOfRecording')->all(),
-            weightRecordings: $user->weightRecordings->all(),
+            weightRecordings: WeightRecordingResource::collection($user->weightRecordings->all())->jsonSerialize(),
             recommendedCalorieIntake: $calorieIntake + $user->nutritionalData->calorieRestriction,
             recommendedProteinIntake: $recommendedMacroIntakeCalculation->protein,
             recommendedCarbohydratesIntake: $recommendedMacroIntakeCalculation->carbohydrates,

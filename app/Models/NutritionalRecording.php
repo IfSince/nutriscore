@@ -17,6 +17,9 @@ class NutritionalRecording implements JsonSerializable {
         public string $dateOfRecording,
         public int $amount,
         public int $calories,
+        public int $protein,
+        public int $carbohydrates,
+        public int $fats,
         public ?Unit $unit,
     ) {
     }
@@ -31,7 +34,10 @@ class NutritionalRecording implements JsonSerializable {
             'dateOfRecording' => $this->dateOfRecording,
             'amount' => $this->amount,
             'calories' => $this->calories,
-            'unit' => $this->unit
+            'protein' => $this->protein,
+            'carbohydrates' => $this->carbohydrates,
+            'fats' => $this->fats,
+            'unit' => $this->unit,
         ];
     }
 }
