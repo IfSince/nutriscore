@@ -13,4 +13,12 @@ class Gender extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function isFemale(): bool {
+        return $this->id === 1;
+    }
+
+    public function isMale(): bool {
+        return $this->id === 2;
+    }
 }

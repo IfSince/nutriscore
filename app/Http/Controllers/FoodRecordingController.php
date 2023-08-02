@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FoodRecordingRequest;
+use App\Http\Resources\FoodRecordingResource;
 use App\Models\FoodRecording;
 use App\Models\User;
 use App\Services\FoodRecordingService;
@@ -15,22 +16,22 @@ class FoodRecordingController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FoodRecordingRequest $request, User $user): FoodRecording {
-        return $this->foodRecordingService->create($request->validated(), $user) ;
+    public function store(FoodRecordingRequest $request, User $user): FoodRecordingResource {
+        return FoodRecordingResource::make($this->foodRecordingService->create($request->validated(), $user));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(FoodRecording $foodRecording): FoodRecording {
-        return $foodRecording;
+    public function show(FoodRecording $foodRecording): FoodRecordingResource {
+        return FoodRecordingResource::make($foodRecording);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(FoodRecordingRequest $request, FoodRecording $foodRecording): FoodRecording {
-        return $this->foodRecordingService->update($request->validated(), $foodRecording);
+    public function update(FoodRecordingRequest $request, FoodRecording $foodRecording): FoodRecordingResource {
+        return FoodRecordingResource::make($this->foodRecordingService->update($request->validated(), $foodRecording));
     }
 
     /**

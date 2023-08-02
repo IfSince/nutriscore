@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Casts\Hash;
 use App\Models\Enums\Unit;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -111,5 +112,9 @@ class User extends Authenticatable {
 
     public function foodRecordings(): HasMany {
         return $this->hasMany(FoodRecording::class);
+    }
+
+    public function age(): int {
+        return Carbon::parse($this->date_of_birth)->age;
     }
 }

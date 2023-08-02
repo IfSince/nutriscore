@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +14,10 @@ class AuthController extends Controller {
         if (Auth::attempt($request->validated())) {
             $request->session()->regenerate();
 
-            return response(content: ['data' => Auth::user()], status: Status::HTTP_CREATED);
+            return response(content: UserResource::make(Auth::user()), status: Status::HTTP_OK);
         }
 
-        return response(['message' => 'Invalid email or password'], Status::HTTP_UNAUTHORIZED);
+        return response(['message' => 'Invalid email or password'], Status::HTTP_UNPROCESSABLE_ENTITY);
     }
     public function logout(Request $request): Response {
         Auth::guard('web')->logout();

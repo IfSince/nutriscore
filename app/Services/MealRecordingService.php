@@ -20,6 +20,8 @@ class MealRecordingService {
         $mealRecording->time_of_day = $data['timeOfDay'];
         $mealRecording->amount = $data['amount'];
 
+        $mealRecording->save();
+
         return $mealRecording;
     }
 
