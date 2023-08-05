@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest {
         return [
             'userTypeId' => ['required', 'integer', 'exists:user_types,id'],
             'email' => ['required', 'string', 'email', 'max:255', "unique:users,email,{$request->user()->id}"],
-            'firstName' => ['nullable', 'string', 'min:2', 'max:255'],
+            'firstName' => ['required', 'string', 'min:2', 'max:255'],
             'lastName' => ['required', 'string', 'min:2', 'max:255'],
             'genderId' => ['required', 'integer', 'exists:genders,id'],
             'dateOfBirth' => ['required', 'date'],

@@ -52,6 +52,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users/{user}/nutritional-metadata', [UserNutritionalMetadataController::class, 'show']);
     Route::get('users/{user}/nutritional-recordings', [NutritionalRecordingController::class, 'show']);
     Route::get('users/{user}/nutrition', [NutritionalDataController::class, 'showByUser']);
+    Route::get('users/{user}/allergenics', [AllergenicController::class, 'showByUser']);
+    Route::put('users/{user}/allergenics', [AllergenicController::class, 'updateByUser']);
 
     // Weight Recordings
     Route::get('users/{user}/weight-recordings/latest', [WeightRecordingController::class, 'showLatest']);

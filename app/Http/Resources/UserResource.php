@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,7 +23,7 @@ class UserResource extends JsonResource
             'lastName' => $this->last_name,
             'file' => $this->file,
             'genderId' => $this->gender_id,
-            'dateOfBirth' => $this->date_of_birth,
+            'dateOfBirth' => Carbon::parse($this->date_of_birth)->toDateString(),
             'height' => $this->height,
             'selectedWeightUnit' => $this->selected_weight_unit,
             'selectedHeightUnit' => $this->selected_height_unit
