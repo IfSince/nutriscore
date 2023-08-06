@@ -21,11 +21,11 @@ class MealRequest extends FormRequest {
         return [
             'description' => ['required', 'string', 'max:255'],
             'fileId' => ['nullable', 'integer', 'exists:file,id'],
-            'categoryIds' => ['array'],
-            'categoryIds.*' => ['sometimes', 'integer', 'exists:food_categories,id'],
-            'foods' => ['array'],
-            'foods.*.id' => ['sometimes', 'distinct', 'integer', 'exists:food,id'],
-            'foods.*.amount' => ['sometimes', 'numeric', 'min:0'],
+            'categories' => ['array'],
+            'categories.*.id' => ['sometimes', 'integer', 'exists:food_categories,id'],
+            'foodItems' => ['array'],
+            'foodItems.*.id' => ['sometimes', 'distinct', 'integer', 'exists:food,id'],
+            'foodItems.*.selectedAmount' => ['sometimes', 'numeric', 'min:0'],
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Allergenic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Collection;
 
 class AllergenicController extends Controller {
     public function index(): AnonymousResourceCollection {
@@ -18,7 +19,9 @@ class AllergenicController extends Controller {
     }
 
     public function updateByUser(Request $request, User $user): AnonymousResourceCollection {
-        $user->allergenics()->sync($request->get('allergenicIds'));
+        $allergenicIds = (new Collection($request->get('allergenics')))->map(fn(array $allergenic) => $allergenic['id']);
+        
+        $user->allergenics()->sync($allergenicIds);
         $user->save();
 
         return DescriptiveResource::collection($user->allergenics);

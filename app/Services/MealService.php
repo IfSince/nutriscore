@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Meal;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class MealService {
     public function create(array $data, User $user): Meal {
@@ -12,11 +13,12 @@ class MealService {
             'file_id' => $data['fileId'],
         ]);
 
-        $meal->categories()->attach($data['categoryIds']);
+        $meal->categories()->attach(new Collection($data['categories']));
 
-        $foodCollection =
-            collect($data['foods'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['amount']]]);
+        $foodCollection = collect($data['foods'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['selectedAmount']]]);
         $meal->foods()->attach($foodCollection);
+
+        $meal->save();
 
         return $meal;
     }
@@ -25,11 +27,13 @@ class MealService {
         $meal->description = $data['description'];
         $meal->file_id = null;
 
-        $meal->categories()->sync($data['categoryIds']);
+        $categoryIds = (new Collection($data['categories']))->map(fn(array $category) => $category['id']);
+        $meal->categories()->sync($categoryIds);
 
-        $foodCollection =
-            collect($data['foods'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['amount']]]);
+        $foodCollection = collect($data['foodItems'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['selectedAmount']]]);
         $meal->foods()->sync($foodCollection);
+
+        $meal->save();
 
         return $meal;
     }

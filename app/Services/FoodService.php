@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Food;
+use Illuminate\Support\Collection;
 
 class FoodService {
     public function create(array $data): Food {
@@ -17,8 +18,11 @@ class FoodService {
             'file_id' => null,
         ]);
 
-        $food->categories()->attach($data['categories']);
-        $food->allergenics()->attach($data['allergenics']);
+        $categoryIds = (new Collection($data['categories']))->map(fn(array $category) => $category['id']);
+        $food->categories()->attach($categoryIds);
+
+        $allergenicIds = (new Collection($data['categories']))->map(fn(array $allergenic) => $allergenic['id']);
+        $food->allergenics()->attach($allergenicIds);
 
         return $food;
     }
@@ -33,8 +37,11 @@ class FoodService {
         $food->fats = $data['fats'];
         $food->file_id = null;
 
-        $food->categories()->sync($data['categories']);
-        $food->allergenics()->sync($data['allergenics']);
+        $categoryIds = (new Collection($data['categories']))->map(fn(array $category) => $category['id']);
+        $food->categories()->sync($categoryIds);
+
+        $allergenicIds = (new Collection($data['categories']))->map(fn(array $allergenic) => $allergenic['id']);
+        $food->allergenics()->sync($allergenicIds);
 
         $food->save();
 
