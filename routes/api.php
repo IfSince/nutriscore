@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLevelController;
 use App\Http\Controllers\AllergenicController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalculationTypeController;
@@ -41,6 +42,7 @@ Route::get('allergenics', [AllergenicController::class, 'index']);
 Route::get('nutrition-types', [NutritionTypeController::class, 'index']);
 Route::get('genders', [GenderController::class, 'index']);
 Route::get('calculation-types', [CalculationTypeController::class, 'index']);
+Route::get('activity-levels', [ActivityLevelController::class, 'index']);
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
