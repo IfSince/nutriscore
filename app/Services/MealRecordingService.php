@@ -7,8 +7,9 @@ use App\Models\User;
 
 class MealRecordingService {
     public function create(array $data, User $user): MealRecording {
+
         return $user->mealRecordings()->create([
-            'meal_id' => $data['mealId'],
+            'meal_id' => $data['mealItem']['id'],
             'date_of_recording' => $data['dateOfRecording'],
             'time_of_day' => $data['timeOfDay'],
             'amount' => $data['amount'],

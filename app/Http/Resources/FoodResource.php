@@ -21,12 +21,10 @@ class FoodResource extends JsonResource {
             'protein' => floatval($this->protein),
             'carbohydrates' => floatval($this->carbohydrates),
             'fats' => floatval($this->fats),
-            'file_id' => $this->file_id,
-            'selectedAmount' => $this->whenPivotLoaded('meal_to_food', fn() => $this->pivot->amount),
-            $this->mergeWhen(!$this->relationLoaded('pivot'), [
-                'categories' => $this->categories,
-                'allergenics' => $this->allergenics,
-            ]),
+            'fileId' => $this->file_id,
+            'selectedAmount' => $this->whenPivotLoaded('meal_to_food', fn() => floatval($this->pivot->amount)),
+            'categories' => $this->categories,
+            'allergenics' => $this->allergenics,
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MealRecordingRequest;
+use App\Http\Resources\MealRecordingResource;
 use App\Models\MealRecording;
 use App\Models\User;
 use App\Services\MealRecordingService;
@@ -15,22 +16,22 @@ class MealRecordingController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MealRecordingRequest $request, User $user): MealRecording {
-        return $this->mealRecordingService->create($request->validated(), $user);
+    public function store(MealRecordingRequest $request, User $user): MealRecordingResource {
+        return MealRecordingResource::make($this->mealRecordingService->create($request->validated(), $user));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(MealRecording $mealRecording): MealRecording {
-        return $mealRecording;
+    public function show(MealRecording $mealRecording): MealRecordingResource {
+        return MealRecordingResource::make($mealRecording);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(MealRecordingRequest $request, MealRecording $mealRecording): MealRecording {
-        return $this->mealRecordingService->update($request->validated(), $mealRecording);
+    public function update(MealRecordingRequest $request, MealRecording $mealRecording): MealRecordingResource {
+        return MealRecordingResource::make($this->mealRecordingService->update($request->validated(), $mealRecording));
     }
 
     /**

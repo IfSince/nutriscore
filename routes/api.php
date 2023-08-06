@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ActivityLevelController;
 use App\Http\Controllers\AllergenicController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalculationTypeController;

@@ -21,7 +21,7 @@ class MealRecordingRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'mealId' => ['required', 'exists:meals,id'],
+            'mealItem.id' => ['required', 'exists:meals,id'],
             'dateOfRecording' => ['required', 'date'],
             'timeOfDay' => ['required', new Enum(TimeOfDay::class)],
             'amount' => ['required', 'numeric', 'min:0'],
