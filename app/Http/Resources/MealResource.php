@@ -16,6 +16,7 @@ class MealResource extends JsonResource {
             'id' => $this->id,
             'description' => $this->description,
             'userId' => $this->user_id,
+            'userName' => $this->user->last_name,
             'fileId' => $this->file_id,
             'calories' => $this->calories(),
             'protein' => $this->protein(),
