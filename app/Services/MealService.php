@@ -10,12 +10,13 @@ class MealService {
     public function create(array $data, User $user): Meal {
         $meal = $user->meals()->create([
             'description' => $data['description'],
-            'file_id' => $data['fileId'],
+            'file_id' => $data['fileId'] ?? null,
         ]);
 
-        $meal->categories()->attach(new Collection($data['categories']));
+        $categoryIds = (new Collection($data['categories']))->map(fn(array $category) => $category['id']);
+        $meal->categories()->attach($categoryIds);
 
-        $foodCollection = collect($data['foods'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['selectedAmount']]]);
+        $foodCollection = collect($data['foodItems'])->mapWithKeys(fn($value) => [$value['id'] => ['amount' => $value['selectedAmount']]]);
         $meal->foods()->attach($foodCollection);
 
         $meal->save();
