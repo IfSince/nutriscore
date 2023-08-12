@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class RegisterService {
@@ -25,7 +26,9 @@ class RegisterService {
             $this->individualMacroDistributionService->create($data['individualMacroDistribution'], $nutritionalData);
         }
 
-        $user->allergenics()->attach($data['allergenicIds']);
+        $allergenicIds = (new Collection($data['allergenics']))->map(fn(array $category) => $category['id']);
+
+        $user->allergenics()->attach($allergenicIds);
 
         DB::commit();
     }

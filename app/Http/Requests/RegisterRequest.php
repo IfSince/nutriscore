@@ -55,7 +55,9 @@ class RegisterRequest extends FormRequest {
             'individualMacroDistribution.carbohydrates' => ['nullable', 'integer', 'min:0'],
             'individualMacroDistribution.fats' => ['nullable', 'integer', 'min:0'],
 
-            'allergenicIds' => ['nullable', 'array', 'exists:allergenics,id']
+            'allergenics' => ['nullable', 'array'],
+            'allergenics.*.id' => ['sometimes', 'distinct', 'integer', 'exists:allergenics,id'],
+            'allergenics.*.description' => ['string'],
         ];
     }
 
