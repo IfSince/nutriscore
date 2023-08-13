@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->comment('Foreign key for user')
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->noActionOnDelete();
             $table->foreignIdFor(File::class)->comment('Foreign key for file (profile image)')->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()

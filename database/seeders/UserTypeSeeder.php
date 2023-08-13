@@ -14,6 +14,7 @@ class UserTypeSeeder extends Seeder {
             ['id' => 1, 'description' => 'Admin'],
             ['id' => 2, 'description' => 'Person'],
             ['id' => 3, 'description' => 'Patient'],
+            ['id' => 4, 'description' => 'Technical User'],
         ]);
     }
 }

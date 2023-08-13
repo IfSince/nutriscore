@@ -42,9 +42,11 @@ class UserService {
         $user->individualMacroDistribution()->delete();
         $user->nutritionalData()->delete();
         $user->weightRecordings()->delete();
+        $user->mealRecordings()->delete();
         $user->file()->delete();
         $user->allergenics()->detach();
-        $user->meals()->delete();
+
+        $user->meals()->update(['user_id' => 9999]); // we cant delete meals, that's why we update them to the technical user
 
         $user->delete();
     }
