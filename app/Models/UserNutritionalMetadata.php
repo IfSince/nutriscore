@@ -26,7 +26,7 @@ class UserNutritionalMetadata implements JsonSerializable {
             'recommendedProteinIntake' => $this->recommendedProteinIntake,
             'recommendedCarbohydratesIntake' => $this->recommendedCarbohydratesIntake,
             'recommendedFatsIntake' => $this->recommendedFatsIntake,
-            'recommendedWaterIntake' => $this->recommendedWaterIntake,
+            'recommendedWaterIntake' => number_format($this->recommendedWaterIntake),
         ];
     }
 }
