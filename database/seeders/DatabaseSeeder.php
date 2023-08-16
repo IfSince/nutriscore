@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder {
             AllergenicSeeder::class,
             FoodCategorySeeder::class,
             TechnicalUserSeeder::class,
+
+            FoodSeeder::class,
+            UserSeeder::class,
+
         ]);
     }
 }
