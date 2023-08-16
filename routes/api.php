@@ -14,6 +14,7 @@ use App\Http\Controllers\NutritionalDataController;
 use App\Http\Controllers\NutritionalRecordingController;
 use App\Http\Controllers\NutritionalRecordingSearchController;
 use App\Http\Controllers\NutritionTypeController;
+use App\Http\Controllers\ProfileMetadataController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserNutritionalMetadataController;
@@ -50,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // User
     Route::apiResource('users', UserController::class)->only(['show', 'update', 'destroy']);
+    Route::get('users/{user}/profile-metadata', [ProfileMetadataController::class, 'get']);
     Route::get('users/{user}/nutritional-metadata', [UserNutritionalMetadataController::class, 'show']);
     Route::get('users/{user}/nutritional-recordings', [NutritionalRecordingController::class, 'show']);
     Route::get('users/{user}/nutrition', [NutritionalDataController::class, 'showByUser']);
